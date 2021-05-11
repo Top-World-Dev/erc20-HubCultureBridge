@@ -1,0 +1,21 @@
+contract-whitelist = [
+    "0x00000000deadbeefdeadbeefdeadbeefdeadbeef",
+]
+
+[[function-config]]
+name = "hello"
+inputs = [
+    { name = "spam", type = "uint256" },
+    { name = "eggs", type = "address" },
+]
+
+[[function-config]]
+name = "world"
+inputs = []
+
+[[ethtoken-config]]
+name = "user-token"
+inputs = [
+    { name = "user", type = "address" },
+    { name = "data", type = "bytes32" },
+]

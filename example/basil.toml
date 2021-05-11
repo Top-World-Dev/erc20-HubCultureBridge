@@ -1,0 +1,59 @@
+[project-info]
+project-name = "bridge"
+
+[docker-compose]
+gateway-addr = "10.0.10.1"
+expose-iface = true
+
+[[node.internal]]
+node-name = "interface"
+node-role = "interface"
+network-addr = "10.0.10.2:30303"
+
+[[node.internal]]
+node-name = "node-0"
+node-role = "authority"
+network-addr = "10.0.10.3:30303"
+include = ["example/:include-example/"]
+
+[[node.internal]]
+node-name = "node-1"
+node-role = "authority"
+network-addr = "10.0.10.4:30303"
+
+[[actor.external]]
+actor-name = "hc-failsafe"
+address = "0xec46e1f6aaf97641998fd6b0eb727dcefe1df81e"
+balance = 9223372036854775807
+
+[[actor.external]]
+actor-name = "hc-owner"
+address = "0x807decac9505b6658c9b7035549012118db7cff8"
+balance = 9223372036854775807
+
+#[[actor.external]]
+#actor-name = "hc-authority"
+#address = "0xb109bd86061b2aa3768a02ec62a6bf11a98eaf48"
+#balance = 9223372036854775807
+#tags = ["hc-authority"]
+
+#[[actor.external]]
+#actor-name = "hc-vault"
+#address = "0x3aee58300836f4672f20580fc9a71506da36c9a6"
+#balance = 9223372036854775807
+#tags = ["hc-vault"]
+
+[[actor.external]]
+actor-name = "hc-user"
+address = "0x887f4961963be8ed23cfa4a8051ccb76b5a4f9dd"
+balance = 9223372036854775807
+tags = ["hc-user"]
+
+[[contract]]
+name = "HubCulture"
+addr = "0x000000000000000000000000000000000000004c"
+args = [
+    "account-addr::hc-owner",
+    "account-addr::hc-failsafe",
+]
+

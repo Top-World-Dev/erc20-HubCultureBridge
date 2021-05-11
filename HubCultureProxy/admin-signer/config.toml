@@ -1,0 +1,34 @@
+[[function-config]]
+name = "addVault"
+inputs = [
+    { name = "vault", type = "address" },
+]
+
+[[function-config]]
+name = "removeVault"
+inputs = [
+    { name = "vault", type = "address" },
+]
+
+[[function-config]]
+name = "addAuthority"
+inputs = [
+    { name = "authority", type = "address" },
+]
+
+[[function-config]]
+name = "removeAuthority"
+inputs = [
+    { name = "authority", type = "address" },
+]
+
+[[function-config]]
+name = "setOwner"
+inputs = [
+    { name = "owner", type = "address" },
+]
+
+[[function-config]]
+name = "pause"
+inputs = []
+

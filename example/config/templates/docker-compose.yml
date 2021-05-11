@@ -1,0 +1,93 @@
+version: "2.1"
+services:
+
+  owner:
+    build:
+      context: owner-signer
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.7
+    command: --node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}
+    volumes:
+      - owner-state:/signer
+    depends_on:
+      - interface
+    ports:
+      - "127.0.0.1:8080:8080"
+
+  user:
+    build:
+      context: user-signer
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.11
+    command: --node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}
+    volumes:
+      - user-state:/signer
+    depends_on:
+      - interface
+    ports:
+      - "127.0.0.1:8081:8080"
+
+  authority:
+    build:
+      context: authority-signer
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.5
+    command: --node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}
+    volumes:
+      - authority-state:/signer
+    depends_on:
+      - interface
+
+  vault:
+    build:
+      context: vault-signer
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.6
+    command: --node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}
+    volumes:
+      - vault-state:/signer
+    depends_on:
+      - interface
+
+  eth-logs:
+    build:
+      context: log-server
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.8
+    depends_on:
+      - interface
+    environment:
+        - LOGS_CALLBACK=${LOGS_CALLBACK:?'Logs callback value'}
+    command: --node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --start-block ${LOGS_START_BLOCK:?'Logs Starting Block'} --lag-by 0
+
+  authority-middleware:
+    build:
+      context: middleware
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.9
+    command: --host 0.0.0.0 --port 8080 http://10.0.10.5:8080 http://10.0.10.8:8080
+    ports:
+      - "127.0.0.1:8888:8080"
+
+  vault-middleware:
+    build:
+      context: middleware
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.10
+    command: --host 0.0.0.0 --port 8080 http://10.0.10.6:8080 http://10.0.10.8:8080
+    ports:
+      - "127.0.0.1:8889:8080"
+
+volumes:
+  owner-state: {}
+  user-state: {}
+  authority-state: {}
+  vault-state: {}
+

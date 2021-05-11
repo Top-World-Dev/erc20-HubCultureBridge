@@ -1,0 +1,32 @@
+[parity]
+chain = "basil/chain.json"
+no_download = true
+base_path = "basil/state/chainstate"
+keys_path = "basil/keys"
+
+[ui]
+disable = true
+
+[rpc]
+apis = ["eth","net","parity"]
+
+[websockets]
+apis = ["eth","net","parity"]
+
+[ipc]
+disable = true
+
+[secretstore]
+disable = true
+
+[network]
+node_key = "{{network_key}}"
+reserved_peers = "basil/peers.txt"
+
+[account]
+password = ["basil/account.pass"]
+
+[mining]
+engine_signer = "{{account_addr}}"
+reseal_on_txs = "none"
+

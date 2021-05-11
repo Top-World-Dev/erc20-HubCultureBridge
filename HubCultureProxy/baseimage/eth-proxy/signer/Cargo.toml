@@ -1,0 +1,18 @@
+[package]
+name = "signer"
+version = "0.1.0"
+authors = ["Forrest Marshall <forrest@mimirblockchain.solutions>"]
+
+[dependencies]
+mimir-common = { git = "https://github.com/mimirblockchainsolutions/mimir-bridge-alpha.git", branch = "refactor" }
+mimir-crypto = { git = "https://github.com/mimirblockchainsolutions/mimir-bridge-alpha.git", branch = "refactor" }
+ethrpc = { path = "../eth-rpc" }
+proxy = { path = "../proxy" }
+structopt = "0.2.10"
+serde_derive = "1.0.27"
+serde_json = "1.0.27"
+serde = "1.0.27"
+rand = "0.4.2"
+toml = "0.4.8"
+log = "0.4.5"
+

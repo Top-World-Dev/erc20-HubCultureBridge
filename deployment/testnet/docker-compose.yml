@@ -1,0 +1,73 @@
+---
+version: "2.1"
+services:
+  owner:
+    build:
+      context: "owner-signer"
+    restart: "always"
+    volumes:
+      - "owner-state:/signer"
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.7
+    command: "--node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}"
+    depends_on:
+      - interface
+  "node-1":
+    build:
+      context: "node-1"
+    restart: "always"
+    volumes:
+      - "node-1-state:/basil/state"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.4
+  "node-0":
+    build:
+      context: "node-0"
+    restart: "always"
+    volumes:
+      - "node-0-state:/basil/state"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.3
+  interface:
+    build:
+      context: interface
+    restart: "always"
+    volumes:
+      - "interface-state:/basil/state"
+    ports:
+      - "127.0.0.1:8545:8545"
+      - "127.0.0.1:8546:8546"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.2
+  user:
+    build:
+      context: "user-signer"
+    restart: "always"
+    volumes:
+      - "user-state:/signer"
+    ports:
+      - "127.0.0.1:8081:8080"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.11
+    depends_on:
+      - interface
+    command: "--node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}"
+networks:
+  "bridge-net":
+    ipam:
+      config:
+        - gateway: 10.0.10.1
+          subnet: 10.0.10.1/24
+volumes:
+  "owner-state": {}
+  "node-1-state": {}
+  "interface-state": {}
+  "node-0-state": {}
+  "user-state": {}

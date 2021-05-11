@@ -1,0 +1,6 @@
+[submodule "HubCultureSolidity"]
+	path = HubCultureSolidity
+	url = ../erc20-HubCultureSolidity.git
+[submodule "HubCultureProxy/baseimage/eth-proxy"]
+	path = HubCultureProxy/baseimage/eth-proxy
+	url = ../erc20-eth-proxy.git

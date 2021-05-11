@@ -1,0 +1,38 @@
+# Binds to `127.0.0.1:8008`, serving templated event info
+# based on active queries.
+[[server-config]]
+socket-addr = "127.0.0.1:8008"
+origin = []
+events = [
+    "Transfer",
+    "Approval",
+]
+
+# Listens for the standard ERC-20 `Transfer` and `Approval` events
+# from all addresses, and forwards templated info to `127.0.0.1:8080`.
+[[callback-config]]
+callback = "http://127.0.0.1:8080/"
+origin = []
+events = [
+    "Transfer",
+    "Approval",
+]
+
+[[event-config]]
+template = "transfer.tera"
+name = "Transfer"
+inputs = [
+    { name = "from",   type = "address", indexed = true  },
+    { name = "to",     type = "address", indexed = true  },
+    { name = "tokens", type = "uint",    indexed = false },
+]
+
+[[event-config]]
+template = "approval.tera"
+name = "Approval"
+inputs = [
+    { name = "tokenOwner", type = "address", indexed = true  },
+    { name = "spender",    type = "address", indexed = true  },
+    { name = "tokens",     type = "uint",    indexed = false },
+]
+

@@ -1,0 +1,22 @@
+[package]
+name = "eth-proxy"
+version = "0.1.0"
+authors = ["Forrest Marshall <forrest@mimirblockchain.solutions>"]
+
+[[bin]]
+name = "eth-proxy"
+path = "cli/eth-proxy.rs"
+
+[workspace]
+members = ["signer","signer-proxy","proxy","eth-rpc","eth-log"]
+
+[dependencies]
+eth-log = { path = "eth-log" }
+signer = { path = "signer" }
+signer-proxy = { path = "signer-proxy" }
+proxy = { path = "proxy" }
+structopt = "0.2.10"
+tokio = "0.1.8"
+env_logger = "0.5.13"
+log = "0.4.5"
+

@@ -1,0 +1,14 @@
+[[function-config]]
+name = "register"
+inputs = [
+    { name = "uuid", type = "bytes32" },
+    { name = "v",    type = "uint8"   },
+    { name = "r",    type = "bytes32" },
+    { name = "s",    type = "bytes32" },
+]
+
+[[function-config]]
+name = "withdraw"
+inputs = [
+    { name = "value", type = "uint256" },
+]

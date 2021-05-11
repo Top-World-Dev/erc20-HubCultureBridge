@@ -1,0 +1,31 @@
+[network]
+reserved_peers = "basil/peers.txt"
+node_key = "b0202ae6b1f8e28116e51308345284798a959b43a78f96bd0beec2ec67e21026"
+
+[mining]
+engine_signer = "0xf3b85bd75b8fda0c6526399f72181b208ceda330"
+reseal_on_txs = "none"
+
+[parity]
+base_path = "basil/state/chainstate"
+chain = "basil/chain.json"
+keys_path = "basil/keys"
+no_download = true
+
+[secretstore]
+disable = true
+
+[rpc]
+apis = ["eth", "net", "parity"]
+
+[account]
+password = ["basil/account.pass"]
+
+[ipc]
+disable = true
+
+[websockets]
+apis = ["eth", "net", "parity"]
+
+[ui]
+disable = true

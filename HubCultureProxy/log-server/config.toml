@@ -1,0 +1,77 @@
+[[callback-config]]
+callback = "$LOGS_CALLBACK"
+origin = []
+events = [
+    "Pending",
+    "Deposit",
+    "Withdraw",
+    "Decline",
+    "Registration",
+    "Unregistered",
+]
+
+[[server-config]]
+socket-addr = "0.0.0.0:8080"
+origin = []
+events = [
+    "Pending",
+    "Deposit",
+    "Withdraw",
+    "Decline",
+    "Registration",
+    "Unregistered",
+]
+
+
+[[event-config]]
+template = "Pending.tera"
+name = "Pending"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "value", type = "uint256", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]
+
+[[event-config]]
+template = "Deposit.tera"
+name = "Deposit"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "value", type = "uint256", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]
+
+[[event-config]]
+template = "Withdraw.tera"
+name = "Withdraw"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "value", type = "uint256", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]
+
+[[event-config]]
+template = "Decline.tera"
+name = "Decline"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "value", type = "uint256", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]
+
+[[event-config]]
+template = "Registration.tera"
+name = "Registration"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "uuid", type = "bytes32", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]
+
+[[event-config]]
+template = "Unregistered.tera"
+name = "Unregistered"
+inputs = [
+    { name = "account", type = "address", indexed = true },
+    { name = "nonce", type = "uint256", indexed = true },
+]

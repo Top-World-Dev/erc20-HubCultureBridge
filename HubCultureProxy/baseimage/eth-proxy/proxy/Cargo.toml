@@ -1,0 +1,21 @@
+[package]
+name = "proxy"
+version = "0.1.0"
+authors = ["Forrest Marshall <forrest@mimirblockchain.solutions>"]
+
+[dependencies]
+structopt = "0.2.10"
+serde_derive = "1.0.27"
+serde_json = "1.0.27"
+serde = "1.0.27"
+native-tls = "0.2.1"
+tokio-util = { git = "https://github.com/forrest-marshall/tokio-util.git" }
+tokio-tungstenite = "0.6.0"
+tokio-tls = "0.2.0"
+tokio = "0.1.8"
+hyper-tls = "0.3.1"
+hyper = "0.12.11"
+http = "0.1.13"
+log = "0.4.5"
+url = "1.7.1"
+

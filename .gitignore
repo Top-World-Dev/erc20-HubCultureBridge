@@ -1,0 +1,7 @@
+# temporary files
+**/tmp
+
+# vim stuff
+*.swp
+*.swo
+

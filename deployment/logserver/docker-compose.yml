@@ -1,0 +1,33 @@
+---
+version: "2.1"
+services:
+  "logserver":
+    environment:
+      - NODE_CONNECT_TIMEOUT
+      - NODE_REQUEST_TIMEOUT 
+      - NODE_MAX_IDLE
+    build:
+      context: "log-server"
+    restart: "always"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.12
+    environment:
+      - "LOGS_CALLBACK=${LOGS_CALLBACK:?'Logs callback value'}"
+    command: "--node-addr ${HC_NODE_WS:?'Node WebSocket URL'} --start-block ${LOGS_START_BLOCK:?'Logs Starting Block'} --lag-by ${LOGS_BLOCK_LAG:?'Block Lag'}"
+  "logserver-middleware":
+    build:
+      context: middleware
+    restart: "always"
+    ports:
+      - ${LOGSERVER_PORT_MAP:?'Logserver Port Mapping'}
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.13
+    command: "--host 0.0.0.0 --port 8080 http://10.0.10.5:8080 http://10.0.10.12:8080"
+networks:
+  "bridge-net":
+    ipam:
+      config:
+        - gateway: 10.0.10.1
+          subnet: 10.0.10.1/24

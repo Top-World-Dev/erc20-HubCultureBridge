@@ -1,0 +1,7 @@
+{
+    "event": {{ meta.event_name | json_encode() }}, 
+    "origin": {{ log.address | json_encode() }},
+    "block": {{ log.blockNumber | json_encode() }},
+    "to": {{ event.to | json_encode() }},
+    "from": {{ event.from | json_encode() }}
+}

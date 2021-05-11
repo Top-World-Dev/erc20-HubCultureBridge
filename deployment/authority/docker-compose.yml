@@ -1,0 +1,35 @@
+---
+version: "2.1"
+services:
+  "authority-middleware":
+    build:
+      context: middleware
+    restart: "always"
+    ports:
+      - ${AUTHORITY_PORT_MAP:?'Authority Port Mapping'}
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.9
+    command: "--host 0.0.0.0 --port 8080 http://10.0.10.5:8080 http://10.0.10.8:8080"
+  authority:
+    environment:
+      - NODE_CONNECT_TIMEOUT
+      - NODE_REQUEST_TIMEOUT 
+      - NODE_MAX_IDLE
+    build:
+      context: "authority-signer"
+    restart: "always"
+    volumes:
+      - "authority-state:/signer"
+    networks:
+      "bridge-net":
+        ipv4_address: 10.0.10.5
+    command: "--node-addr ${HC_NODE_WS:?'Node WebSocket API Endpoint'} --default-contract ${HC_CONTRACT:?'HubCulture Contract Address'}"
+networks:
+  "bridge-net":
+    ipam:
+      config:
+        - gateway: 10.0.10.1
+          subnet: 10.0.10.1/24
+volumes:
+  "authority-state": {}
